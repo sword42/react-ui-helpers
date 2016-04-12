@@ -71,6 +71,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	});
+	
+	var _Validators = __webpack_require__(4);
+	
+	Object.keys(_Validators).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _Validators[key];
+	    }
+	  });
+	});
 
 /***/ },
 /* 1 */
@@ -196,6 +208,98 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports) {
 
 	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.validateEmail = validateEmail;
+	exports.validateRequired = validateRequired;
+	exports.validateMinLength = validateMinLength;
+	exports.validateMaxLength = validateMaxLength;
+	exports.validatePattern = validatePattern;
+	exports.validateNumber = validateNumber;
+	exports.validateAlphaNumeric = validateAlphaNumeric;
+	
+	var _lodash = __webpack_require__(2);
+	
+	function validateEmail(input) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (!(0, _lodash.isString)(input)) {
+			return 'Value is not a valid email';
+		}
+		if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
+			return null;
+		}
+		return 'Value is not a valid email';
+	}
+	
+	function validateRequired(input) {
+		if ((0, _lodash.isNil)(input) || (0, _lodash.isEmpty)(input)) {
+			return 'Value is required';
+		}
+		return null;
+	}
+	
+	function validateMinLength(input, options) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (options && (0, _lodash.isString)(input) && options['length'] && input.length >= options['length']) {
+			return null;
+		}
+		return 'Value must be longer';
+	}
+	
+	function validateMaxLength(input, options) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (options && (0, _lodash.isString)(input) && options['length'] && input.length <= options['length']) {
+			return null;
+		}
+		return 'Value must be longer';
+	}
+	
+	function validatePattern(input, options) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (options && (0, _lodash.isString)(input) && options['pattern']) {
+			var reg = new RegExp(options['pattern']);
+			if (reg.test()) {
+				return null;
+			}
+		}
+		return 'Value must match pattern';
+	}
+	
+	function validateNumber(input) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (/^[0-9]*$/.test(input)) {
+			return null;
+		}
+		return 'Value is not a valid number';
+	}
+	
+	function validateAlphaNumeric(input) {
+		if ((0, _lodash.isNil)(input)) {
+			return null;
+		}
+		if (/^\w+$/.test(input)) {
+			return null;
+		}
+		return 'Value is not a valid alphanumeric';
+	}
 
 /***/ }
 /******/ ])

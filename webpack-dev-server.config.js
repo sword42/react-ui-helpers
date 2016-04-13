@@ -13,7 +13,8 @@ const PATHS = {
 module.exports = {
   context: PATHS.context,
 	entry: {
-		test_inputmodelinui: './input/test_inputmodelinui.js'
+		test_inputmodelinui: './input/test_inputmodelinui.js',
+		test_textinputinui: './input/test_textinputinui.js'
 	},
 	output: {
 		path: PATHS.build,
@@ -63,6 +64,7 @@ module.exports = {
 				// {output}/to/file.txt 
 				{ from: 'testindex.html', to: 'index.html' },
 				{ from: './input/test_inputmodelinui.html', to: 'test_inputmodelinui.html' },
+				{ from: './input/test_textinputinui.html', to: 'test_textinputinui.html' },
 				])
   ]		
 };

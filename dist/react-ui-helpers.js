@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lodash"), require("bluebird"));
+		module.exports = factory(require("lodash"), require("bluebird"), require("react"), require("classnames"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lodash", "bluebird"], factory);
+		define(["lodash", "bluebird", "react", "classnames"], factory);
 	else if(typeof exports === 'object')
-		exports["react-ui-helpers"] = factory(require("lodash"), require("bluebird"));
+		exports["react-ui-helpers"] = factory(require("lodash"), require("bluebird"), require("react"), require("classnames"));
 	else
-		root["react-ui-helpers"] = factory(root["lodash"], root["bluebird"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__) {
+		root["react-ui-helpers"] = factory(root["lodash"], root["bluebird"], root["react"], root["classnames"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -83,6 +83,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	});
+	
+	var _TextInput = __webpack_require__(5);
+	
+	Object.keys(_TextInput).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _TextInput[key];
+	    }
+	  });
+	});
+	
+	var _CheckboxInput = __webpack_require__(8);
+	
+	Object.keys(_CheckboxInput).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _CheckboxInput[key];
+	    }
+	  });
+	});
 
 /***/ },
 /* 1 */
@@ -122,7 +146,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			return modelValue;
 		}
 		function updateValue(event) {
-			var newVal = event.target.value;
+			var newVal = event;
+			if (event && event.target && event.target.value !== undefined) {
+				event.stopPropagation();
+				newVal = event.target.value;
+				if (newVal === '') {
+					newVal = null;
+				}
+			}
 			if (newVal === viewValue && newVal === modelValue) {
 				return;
 			}
@@ -300,6 +331,190 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return 'Value is not a valid alphanumeric';
 	}
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.TextInput = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(2);
+	
+	var _classnames = __webpack_require__(7);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TextInput = exports.TextInput = function (_React$Component) {
+		_inherits(TextInput, _React$Component);
+	
+		function TextInput(props) {
+			_classCallCheck(this, TextInput);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TextInput).call(this, props));
+	
+			_this.state = { name: (0, _lodash.uniqueId)('TextInput') };
+			return _this;
+		}
+	
+		_createClass(TextInput, [{
+			key: 'render',
+			value: function render() {
+				var inputClass = (0, _classnames2.default)({
+					'form-group': true,
+					'has-error': !this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine()
+				});
+				var errors = [];
+				(0, _lodash.forOwn)(this.props.model.errors, function (value, key) {
+					errors.push(_react2.default.createElement(
+						'span',
+						{ className: 'help-block', key: key },
+						value
+					));
+				});
+				return _react2.default.createElement(
+					'div',
+					{ className: inputClass },
+					this.props.label ? _react2.default.createElement(
+						'label',
+						{ htmlFor: this.state.name },
+						this.props.label
+					) : null,
+					_react2.default.createElement('input', { type: 'text', className: 'form-control', name: this.state.name, value: this.props.model.getValue(),
+						onChange: this.props.model.updateValue }),
+					!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine() ? errors : null
+				);
+			}
+		}]);
+	
+		return TextInput;
+	}(_react2.default.Component);
+	
+	TextInput.propTypes = {
+		model: _react2.default.PropTypes.object.isRequired,
+		label: _react2.default.PropTypes.string
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.CheckboxInput = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(2);
+	
+	var _classnames = __webpack_require__(7);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CheckboxInput = exports.CheckboxInput = function (_React$Component) {
+		_inherits(CheckboxInput, _React$Component);
+	
+		function CheckboxInput(props) {
+			_classCallCheck(this, CheckboxInput);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CheckboxInput).call(this, props));
+	
+			_this.state = { name: (0, _lodash.uniqueId)('CheckboxInput') };
+			_this.ckbxUpdateValue = _this.ckbxUpdateValue.bind(_this);
+			return _this;
+		}
+	
+		_createClass(CheckboxInput, [{
+			key: 'ckbxUpdateValue',
+			value: function ckbxUpdateValue(event) {
+				this.props.model.updateValue(!this.props.model.getValue());
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var inputClass = (0, _classnames2.default)({
+					'form-group': true,
+					'has-error': !this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine()
+				});
+				var errors = [];
+				(0, _lodash.forOwn)(this.props.model.errors, function (value, key) {
+					errors.push(_react2.default.createElement(
+						'span',
+						{ className: 'help-block', key: key },
+						value
+					));
+				});
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'div',
+						{ className: inputClass },
+						_react2.default.createElement(
+							'label',
+							null,
+							_react2.default.createElement('input', { type: 'checkbox', name: this.state.name, checked: this.props.model.getValue(),
+								onChange: this.ckbxUpdateValue }),
+							this.props.label
+						)
+					),
+					!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine() ? errors : null
+				);
+			}
+		}]);
+	
+		return CheckboxInput;
+	}(_react2.default.Component);
+	
+	CheckboxInput.propTypes = {
+		model: _react2.default.PropTypes.object.isRequired,
+		label: _react2.default.PropTypes.string.isRequired
+	};
 
 /***/ }
 /******/ ])

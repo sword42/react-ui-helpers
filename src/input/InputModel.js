@@ -24,7 +24,14 @@ function InputModel(vals) {
 		return modelValue
 	}
 	function updateValue(event) {
-		const newVal = event.target.value
+		let newVal = event
+		if (event && event.target && event.target.value !== undefined) {
+			event.stopPropagation()
+			newVal = event.target.value
+			if (newVal === '') {
+				newVal = null;
+			}
+		}
 		if (newVal === viewValue && newVal === modelValue) {
 			return
 		}

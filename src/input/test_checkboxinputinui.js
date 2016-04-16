@@ -6,16 +6,23 @@ import { createInputModel } from './InputModel.js'
 import { CheckboxInput } from './CheckboxInput.jsx'
 
 var info = {
-	model: null,
-	value: false,
-	updateValue: function(value) {
-		info.value = value
+	remembermodel: null,
+	remembervalue: true,
+	updateRemember: function(value) {
+		info.remembervalue = value
+		display()
+	},
+	supermodel: null,
+	supervalue: null,
+	updateSuper: function(value) {
+		info.supervalue = value
 		display()
 	}
 }
 
 function loadData() {
-	info.model = createInputModel({name:'remember', value:false, listeners:[info.updateValue]})
+	info.remembermodel = createInputModel({value:info.remembervalue, listeners:[info.updateRemember]})
+	info.supermodel = createInputModel({value:null, listeners:[info.updateSuper]})
 }
 
 loadData()
@@ -24,11 +31,13 @@ function display() {
 	var content = (
 		<div>
 			<form>
-				<CheckboxInput model={info.model} label="Remember" />
+				<CheckboxInput model={info.remembermodel} label="Remember" />
+				<CheckboxInput model={info.supermodel} label="Super" selectedValue="Batman" />
 				<button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest} 
-						disabled={(!info.model.isValid())}>Submit</button>
+						disabled={(!info.remembermodel.isValid() || !info.supermodel.isValid())}>Submit</button>
 			</form>
-			<p><span>Top Value </span><span>{Boolean(info.value).toString()}</span></p>
+			<p><span>Remember Value </span><span>{Boolean(info.remembervalue).toString()}</span></p>
+			<p><span>Super Value </span><span>{info.supervalue}</span></p>
 		</div>
 	)
 

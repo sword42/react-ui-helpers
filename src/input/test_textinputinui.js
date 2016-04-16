@@ -7,17 +7,23 @@ import { validateEmail, validateRequired } from './Validators.js'
 import { TextInput } from './TextInput.jsx'
 
 var info = {
-	emailModel: null,
-	emailValue: null,
-	updateEmail: function(value) {
-//		console.log('update email called with '+ value)
-		info.emailValue = value
+	model1: null,
+	value1: null,
+	update1: function(value) {
+		info.value1 = value
+		display()
+	},
+	model2: null,
+	value2: null,
+	update2: function(value) {
+		info.value2 = value
 		display()
 	}
 }
 
 function loadData() {
-	info.emailModel = createInputModel({name:'email', value:'', listeners:[info.updateEmail], validators:{email:validateEmail, required: validateRequired}})
+	info.model1 = createInputModel({name:'email', value:info.value1, listeners:[info.update1], validators:{email:validateEmail, required: validateRequired}})
+	info.model2 = createInputModel({name:'email', value:info.value2, listeners:[info.update2], validators:{required: validateRequired}})
 }
 
 loadData()
@@ -26,11 +32,13 @@ function display() {
 	var content = (
 		<div>
 			<form>
-				<TextInput model={info.emailModel} label="Email" />
+				<TextInput model={info.model1} label="Email" />
+				<TextInput model={info.model2} label="Password" obscure={true} />
 				<button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest} 
-						disabled={(!info.emailModel.isValid())}>Submit</button>
+						disabled={(!info.model1.isValid() || !info.model2.isValid())}>Submit</button>
 			</form>
-			<p><span>Top Value </span><span>{info.emailValue}</span></p>
+			<p><span>Value1 </span><span>{info.value1}</span></p>
+			<p><span>Value2 </span><span>{info.value2}</span></p>
 		</div>
 	)
 

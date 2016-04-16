@@ -23,10 +23,11 @@ export class CheckboxInput extends React.Component {
 		forOwn(this.props.model.errors, function(value, key){
 			errors.push(<span className="help-block" key={key}>{value}</span>)
 		})
+		const checkboxType = (this.props.inline ? 'checkbox-inline' : 'checkbox' )
 		return (
 			<div>
 				<div className={inputClass}><label>
-						<input type="checkbox" name={this.state.name} checked={this.props.model.getValue()} 
+						<input type={checkboxType} name={this.state.name} checked={this.props.model.getValue()} 
 								onChange={this.ckbxUpdateValue} />{this.props.label}
 					</label></div>
 				<If condition={(!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine())} >
@@ -39,4 +40,5 @@ export class CheckboxInput extends React.Component {
 CheckboxInput.propTypes = { 
 	model: React.PropTypes.object.isRequired,
 	label: React.PropTypes.string.isRequired,
+	inline: React.PropTypes.bool
 }

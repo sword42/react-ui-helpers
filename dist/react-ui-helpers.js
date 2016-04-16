@@ -107,6 +107,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	});
+	
+	var _RadioInput = __webpack_require__(9);
+	
+	Object.keys(_RadioInput).forEach(function (key) {
+	  if (key === "default") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _RadioInput[key];
+	    }
+	  });
+	});
 
 /***/ },
 /* 1 */
@@ -489,6 +501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						value
 					));
 				});
+				var checkboxType = this.props.inline ? 'checkbox-inline' : 'checkbox';
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -498,7 +511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						_react2.default.createElement(
 							'label',
 							null,
-							_react2.default.createElement('input', { type: 'checkbox', name: this.state.name, checked: this.props.model.getValue(),
+							_react2.default.createElement('input', { type: checkboxType, name: this.state.name, checked: this.props.model.getValue(),
 								onChange: this.ckbxUpdateValue }),
 							this.props.label
 						)
@@ -513,7 +526,131 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	CheckboxInput.propTypes = {
 		model: _react2.default.PropTypes.object.isRequired,
-		label: _react2.default.PropTypes.string.isRequired
+		label: _react2.default.PropTypes.string.isRequired,
+		inline: _react2.default.PropTypes.bool
+	};
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.RadioInput = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(6);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(2);
+	
+	var _classnames = __webpack_require__(7);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var RadioInput = exports.RadioInput = function (_React$Component) {
+		_inherits(RadioInput, _React$Component);
+	
+		function RadioInput(props) {
+			_classCallCheck(this, RadioInput);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RadioInput).call(this, props));
+	
+			_this.updateSelected = _this.updateSelected.bind(_this);
+			_this.getSelectedFromModel = _this.getSelectedFromModel.bind(_this);
+			_this.state = { selected: _this.getSelectedFromModel(props) };
+			return _this;
+		}
+	
+		_createClass(RadioInput, [{
+			key: 'componentWillReceiveProps',
+			value: function componentWillReceiveProps(nextProps) {
+				this.setState({ selected: this.getSelectedFromModel(nextProps) });
+			}
+		}, {
+			key: 'updateSelected',
+			value: function updateSelected(event) {
+				var newSelected = !this.state.selected;
+				this.setState({ selected: newSelected });
+				if ((0, _lodash.has)(this.props, 'selectedValue')) {
+					if (newSelected) {
+						this.props.model.updateValue(this.props.selectedValue);
+					}
+				} else {
+					this.props.model.updateValue(newSelected);
+				}
+			}
+		}, {
+			key: 'getSelectedFromModel',
+			value: function getSelectedFromModel(props) {
+				var localProps = props || this.props;
+				if ((0, _lodash.has)(localProps, 'selectedValue')) {
+					return localProps.model.getValue() === localProps.selectedValue;
+				} else if ((0, _lodash.isBoolean)(localProps.model.getValue())) {
+					return localProps.model.getValue();
+				} else {
+					return false;
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var outerClass = (0, _classnames2.default)({
+					'has-error': !this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine()
+				});
+	
+				if (this.props.inline) {
+					return _react2.default.createElement(
+						'label',
+						{ className: 'radio-inline' },
+						_react2.default.createElement('input', { type: 'radio', name: this.props.name, value: this.state.selected,
+							onChange: this.updateSelected }),
+						' ',
+						this.props.label
+					);
+				} else {
+					return _react2.default.createElement(
+						'div',
+						{ className: outerClass },
+						_react2.default.createElement(
+							'div',
+							{ className: 'radio' },
+							_react2.default.createElement(
+								'label',
+								null,
+								_react2.default.createElement('input', { type: 'radio', name: this.props.name, value: this.state.selected,
+									onChange: this.updateSelected }),
+								' ',
+								this.props.label
+							)
+						)
+					);
+				}
+			}
+		}]);
+	
+		return RadioInput;
+	}(_react2.default.Component);
+	
+	RadioInput.propTypes = {
+		model: _react2.default.PropTypes.object.isRequired,
+		label: _react2.default.PropTypes.string.isRequired,
+		inline: _react2.default.PropTypes.bool,
+		name: _react2.default.PropTypes.string.isRequired,
+		selectedValue: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number, _react2.default.PropTypes.bool, _react2.default.PropTypes.object])
 	};
 
 /***/ }

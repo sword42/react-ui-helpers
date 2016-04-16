@@ -36,7 +36,7 @@ describe('InputModel',() => {
 		it('should update value', () => {
 			const inputModel = createInputModel({value:'abc123', name:'def456'})
 			expect(inputModel.getValue()).to.be.equal('abc123')
-			const testEvent = {target:{value:'321cba'}}
+			const testEvent = '321cba'
 			inputModel.updateValue(testEvent)
 			expect(inputModel.getValue()).to.be.equal('321cba')
 			expect(inputModel.isPristine()).to.be.false
@@ -45,7 +45,7 @@ describe('InputModel',() => {
 		it('should update value with validator', () => {
 			const inputModel = createInputModel({value:'abc123', name:'def456', validators:{'required':requiredValidator}})
 			expect(inputModel.getValue()).to.be.equal('abc123')
-			const testEvent = {target:{value:'321cba'}}
+			const testEvent = '321cba'
 			inputModel.updateValue(testEvent)
 			expect(inputModel.getValue()).to.be.equal('321cba')
 			expect(inputModel).to.have.property('errors')
@@ -56,7 +56,7 @@ describe('InputModel',() => {
 		it('should update value with validator failure', () => {
 			const inputModel = createInputModel({value:'abc123', name:'def456', validators:{'failing':failingValidator}})
 			expect(inputModel.getValue()).to.be.equal('abc123')
-			const testEvent = {target:{value:'321cba'}}
+			const testEvent = '321cba'
 			inputModel.updateValue(testEvent)
 			expect(inputModel.getValue()).to.be.equal('321cba')
 			expect(inputModel.errors).to.have.property('failing')
@@ -75,7 +75,7 @@ describe('InputModel',() => {
 			}
 			const inputModel = createInputModel({value:'abc123', name:'def456',  listeners:[updateListener]})
 			expect(inputModel.getValue()).to.be.equal('abc123')
-			const testEvent = {target:{value:'321cba'}}
+			const testEvent = '321cba'
 			const prom = inputModel.updateValue(testEvent)
 			expect(inputModel.getValue()).to.be.equal('321cba')
 			expect(inputModel.isPristine()).to.be.false

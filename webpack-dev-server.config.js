@@ -16,7 +16,8 @@ module.exports = {
 		test_inputmodelinui: './input/test_inputmodelinui.js',
 		test_textinputinui: './input/test_textinputinui.js',
 		test_checkboxinputinui: './input/test_checkboxinputinui.js',
-		test_radioinputinui: './input/test_radioinputinui.js'
+		test_radioinputinui: './input/test_radioinputinui.js',
+		test_textareainputinui: './input/test_textareainputinui.js'
 	},
 	output: {
 		path: PATHS.build,
@@ -69,6 +70,7 @@ module.exports = {
 				{ from: './input/test_textinputinui.html', to: 'test_textinputinui.html' },
 				{ from: './input/test_checkboxinputinui.html', to: 'test_checkboxinputinui.html' },
 				{ from: './input/test_radioinputinui.html', to: 'test_radioinputinui.html' },
+				{ from: './input/test_textareainputinui.html', to: 'test_textareainputinui.html' },
 				])
   ]		
 };

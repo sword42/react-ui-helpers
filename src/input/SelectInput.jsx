@@ -1,5 +1,5 @@
 import React 		from 'react'
-import { has, isBoolean, forEach, get } from 'lodash'
+import { has, isBoolean, forEach, get, find } from 'lodash'
 import classNames from 'classnames'
 
 
@@ -7,12 +7,19 @@ export class SelectInput extends React.Component {
 	constructor(props) {
 		super(props)
 		this.updateSelection = this.updateSelection.bind(this)
+		this.selectedValue = this.selectedValue.bind(this)
 	}
 
 	updateSelection(event) {
-		let selection = event.target.value
-//		selection = this.props.optionsParser.value( selection )
+		const optionsParser = this.props.optionsParser
+		const selection = find(this.props.options, function(item) {
+			return (event.target.value === optionsParser.label( item ) )
+		})
 		this.props.model.updateValue(selection)
+	}
+
+	selectedValue() {
+		return this.props.optionsParser.label( this.props.model.getValue() )
 	}
 
 	render() {
@@ -24,7 +31,7 @@ export class SelectInput extends React.Component {
 		const optionsParser = this.props.optionsParser
 		forEach(this.props.options, function(option, index){
 			options.push(
-				<option key={index} value={optionsParser.value( option )}>{ optionsParser.label(option) }</option>
+				<option key={ optionsParser.label(option) } value={ optionsParser.label(option) }>{ optionsParser.label(option) }</option>
 				)
 		})
 
@@ -34,7 +41,7 @@ export class SelectInput extends React.Component {
 				<If condition={this.props.label}>
 					<label className="control-label">{this.props.label}</label>
 				</If>
-				<select className="form-control" value={this.props.model.getValue()} onChange={this.updateSelection}>
+				<select className="form-control" value={ this.selectedValue() } onChange={this.updateSelection}>
 					{options}
 				</select>
 				<If condition={(!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine())} >

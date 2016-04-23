@@ -21,8 +21,8 @@ var info = {
 		display()
 	},
 	options2: [ {name:'Lakers', id:'0'}, {name:'Kings', id:'1'}, {name:'Warriors', id:'2'} ],
-//	optionsParser2: buildLabeledObjectOptionParser('name')
-	optionsParser2: buildLabelValueObjectOptionParser('name', 'id')
+	optionsParser2: buildLabeledObjectOptionParser('name')
+//	optionsParser2: buildLabelValueObjectOptionParser('name', 'id')
 }
 
 function loadData() {

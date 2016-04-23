@@ -43,5 +43,8 @@ module.exports = {
 		"lodash": "lodash",
 		"classnames": "classnames"
 	},
-	devtool: 'source-map'
+	devtool: 'source-map',
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({minimize: true})
+	]
 };

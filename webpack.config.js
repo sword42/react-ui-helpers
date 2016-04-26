@@ -20,7 +20,8 @@ module.exports = {
 		filename: 'react-ui-helpers.js',
 		sourceMapFilename: 'react-ui-helpers.js.map',
 		library: 'react-ui-helpers',
-		libraryTarget: 'umd'
+		libraryTarget: 'umd',
+		umdNamedDefine: true
 	},
 	module: {
 		loaders: [
@@ -35,16 +36,39 @@ module.exports = {
 		]
 	},
 	externals: {
-		"jquery": "jQuery",
-		"jquery": "$",
-		"react": "react",
-		"react-dom": "react-dom",
-		"bluebird": "bluebird",
-		"lodash": "lodash",
-		"classnames": "classnames"
+		react: {
+			root: 'React',
+			commonjs2: 'react',
+			commonjs: 'react',
+			amd: 'react'
+		},
+		"react-dom": {
+			root: 'ReactDOM',
+			commonjs2: 'react-dom',
+			commonjs: 'react-dom',
+			amd: 'react-dom'
+		},
+		bluebird: {
+			root: 'Promise',
+			commonjs2: 'bluebird',
+			commonjs: 'bluebird',
+			amd: 'bluebird'
+		},
+		lodash: {
+			root: '_',
+			commonjs2: 'lodash',
+			commonjs: 'lodash',
+			amd: 'lodash'
+		},
+		classnames: {
+			root: 'classNames',
+			commonjs2: 'classnames',
+			commonjs: 'classnames',
+			amd: 'classnames'
+		}
 	},
 	devtool: 'source-map',
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({minimize: true})
 	]
-};
+}

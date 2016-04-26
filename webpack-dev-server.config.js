@@ -65,7 +65,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
 		new CopyWebpackPlugin([
-				// {output}/to/file.txt 
+				// {output}/to/file.txt
 				{ from: 'testindex.html', to: 'index.html' },
 				{ from: './input/test_inputmodelinui.html', to: 'test_inputmodelinui.html' },
 				{ from: './input/test_textinputinui.html', to: 'test_textinputinui.html' },
@@ -74,5 +74,5 @@ module.exports = {
 				{ from: './input/test_textareainputinui.html', to: 'test_textareainputinui.html' },
 				{ from: './input/test_selectinputinui.html', to: 'test_selectinputinui.html' },
 				])
-  ]		
+  ]
 };

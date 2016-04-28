@@ -18,13 +18,12 @@ export class TextareaInput extends React.Component {
 		forOwn(this.props.model.errors, function(value, key){
 			errors.push(<span className="help-block" key={key}>{value}</span>)
 		})
-		const inputType = (this.props.obscure ? 'password' : 'text')
 		return (
 			<div className={inputClass}>
 				<If condition={this.props.label}>
 					<label htmlFor={this.state.name}>{this.props.label}</label>
 				</If>
-				<textarea className="form-control" name={this.state.name} value={this.props.model.getValue()} 
+				<textarea className="form-control" name={this.state.name} value={this.props.model.getValue()}
 						onChange={this.props.model.updateValue}   {...this.props}/>
 				<If condition={(!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine())} >
 					{errors}
@@ -33,7 +32,7 @@ export class TextareaInput extends React.Component {
 		)
 	}
 }
-TextareaInput.propTypes = { 
+TextareaInput.propTypes = {
 	model: React.PropTypes.object.isRequired,
 	label: React.PropTypes.string
 }

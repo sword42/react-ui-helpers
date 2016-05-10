@@ -1,5 +1,5 @@
-# react-ui-helpers
-React Ui Helpers
+# [React UI Helpers](https://sword42.github.io/react-ui-helpers)
+[website](https://sword42.github.io/react-ui-helpers)
 
 Coming to React from Angular, it hurt not to have the form component framework from Angular. ngModel, along with the validation support, allow complex forms with nested components without requiring a rigid structure.
 

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Document on React UI Helpers</title>
+    <link>http://sword42.github.com/react-ui-helpers/tags/document/</link>
+    <description>Recent content in Document on React UI Helpers</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 09 May 2016 15:26:34 -0700</lastBuildDate>
+    <atom:link href="http://sword42.github.com/react-ui-helpers/tags/document/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Usage</title>
+      <link>http://sword42.github.com/react-ui-helpers/usage/</link>
+      <pubDate>Mon, 09 May 2016 15:26:34 -0700</pubDate>
+      
+      <guid>http://sword42.github.com/react-ui-helpers/usage/</guid>
+      <description>
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#inputmodel&#34;&gt;InputModel&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#createinputmodel&#34;&gt;createInputModel&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validators&#34;&gt;Validators&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#validateemail&#34;&gt;validateEmail&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validaterequired&#34;&gt;validateRequired&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validateminlength&#34;&gt;validateMinLength&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validatemaxlength&#34;&gt;validateMaxLength&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validatepattern&#34;&gt;validatePattern&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validatenumber&#34;&gt;validateNumber&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#validatealphanumeric&#34;&gt;validateAlphaNumeric&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#checkboxinput&#34;&gt;CheckboxInput&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#radioinput&#34;&gt;RadioInput&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#selectinput&#34;&gt;SelectInput&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#buildvalueoptionparser&#34;&gt;buildValueOptionParser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#buildlabelvalueobjectoptionparser&#34;&gt;buildLabelValueObjectOptionParser&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#buildlabeledobjectoptionparser&#34;&gt;buildLabeledObjectOptionParser&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#textareainput&#34;&gt;TextareaInput&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#textinput&#34;&gt;TextInput&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;a-id-inputmodel-a-inputmodel:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;inputmodel&#34;&gt;&lt;/a&gt;InputModel&lt;/h3&gt;
+
+&lt;p&gt;An InputModel allows an input field to be bound to a model representation. Allows an initial value to be set, access to the current value, validation of the value, and listener notification. Must be created by &lt;a href=&#34;#createinputmodel&#34;&gt;createInputModel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h5 id=&#34;functions-parameters:dc32fe45042973266ca60588597e0b66&#34;&gt;Functions/Parameters&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;name - the name for the InputModel&lt;/li&gt;
+&lt;li&gt;getValue() - the current value for the InputModel&lt;/li&gt;
+&lt;li&gt;updateValue(newValue) - updates the Value of the InputModel, running validators, and afterwards, calling listeners to notify of value change&lt;/li&gt;
+&lt;li&gt;errors - returns map of errors, where key is validator name and value is failure message&lt;/li&gt;
+&lt;li&gt;isValid() - does the InputModel pass all validators?&lt;/li&gt;
+&lt;li&gt;isPristine() - has the InputModel been modified?&lt;/li&gt;
+&lt;li&gt;isEmpty() - does the InputModel have no value?&lt;/li&gt;
+&lt;li&gt;addListener(listenerFunc)&lt;/li&gt;
+&lt;li&gt;removeListener(listenerFunc)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;a-id-createinputmodel-a-createinputmodel:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;createinputmodel&#34;&gt;&lt;/a&gt;createInputModel&lt;/h4&gt;
+
+&lt;p&gt;Creates a new InputModel, with options&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;name - name for Model&lt;/li&gt;
+&lt;li&gt;value - initial value for Model&lt;/li&gt;
+&lt;li&gt;listeners - array of listenerFunctions&lt;/li&gt;
+&lt;li&gt;validators - map of validatorFunctions, where key is validator name, and value is function&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;a-id-validators-a-validators:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validators&#34;&gt;&lt;/a&gt;Validators&lt;/h3&gt;
+
+&lt;p&gt;Collection of validator functions.  A Validator function must accept the value to be checked, and return null if the value passes the validation, or a String message describing the failure if the Validator does not pass. If the validator requires additional values, the function can accept a second &amp;ldquo;options&amp;rdquo; parameter which will contain key/value pairs of the options.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validateemail-a-validateemail:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validateemail&#34;&gt;&lt;/a&gt;validateEmail&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value is a valid email address.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validaterequired-a-validaterequired:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validaterequired&#34;&gt;&lt;/a&gt;validateRequired&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value exists and is not empty&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validateminlength-a-validateminlength:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validateminlength&#34;&gt;&lt;/a&gt;validateMinLength&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value is of a minimum length. Requires options parameter &amp;ldquo;length&amp;rdquo; to pass validation if the value exists.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validatemaxlength-a-validatemaxlength:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validatemaxlength&#34;&gt;&lt;/a&gt;validateMaxLength&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value is of a maximum length. Requires options parameter &amp;ldquo;length&amp;rdquo; to pass validation if the value exists.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validatepattern-a-validatepattern:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validatepattern&#34;&gt;&lt;/a&gt;validatePattern&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value passes a RegExp pattern. Requires options parameter &amp;ldquo;pattern&amp;rdquo; to pass validation if the value exists.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validatenumber-a-validatenumber:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validatenumber&#34;&gt;&lt;/a&gt;validateNumber&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value is a valid number.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-validatealphanumeric-a-validatealphanumeric:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;validatealphanumeric&#34;&gt;&lt;/a&gt;validateAlphaNumeric&lt;/h4&gt;
+
+&lt;p&gt;Validates that the value is a valid AlphaNumeric value.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-id-checkboxinput-a-checkboxinput:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;checkboxinput&#34;&gt;&lt;/a&gt;CheckboxInput&lt;/h3&gt;
+
+&lt;p&gt;React component that allows an InputModel to be bound to a Checkbox input element.  Uses Bootstrap styling. If the InputModel has an existing value, will default to checked/unchecked depending.&lt;/p&gt;
+
+&lt;h5 id=&#34;proptypes:dc32fe45042973266ca60588597e0b66&#34;&gt;PropTypes&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;model - Required, InputModel&lt;/li&gt;
+&lt;li&gt;label - Required, String&lt;/li&gt;
+&lt;li&gt;inline - Optional, uses Inline Styling&lt;/li&gt;
+&lt;li&gt;selectedValue - Optional, either String, Number, Boolean, or Object. If set, updates Model with this value when the checkbox is selected and null when it isn&amp;rsquo;t selected. If not set, updates model with Boolean True/False value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;a-id-radioinput-a-radioinput:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;radioinput&#34;&gt;&lt;/a&gt;RadioInput&lt;/h3&gt;
+
+&lt;p&gt;React component that allows an InputModel to be bound to a Radio input element.  Uses Bootstrap styling. If the InputModel has an existing value, will default to selected depending.&lt;/p&gt;
+
+&lt;h5 id=&#34;proptypes-1:dc32fe45042973266ca60588597e0b66&#34;&gt;PropTypes&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;model - Required, InputModel&lt;/li&gt;
+&lt;li&gt;label - Required, String&lt;/li&gt;
+&lt;li&gt;inline - Optional, uses Inline Styling&lt;/li&gt;
+&lt;li&gt;name - Required, String, name of Radio Group&lt;/li&gt;
+&lt;li&gt;selectedValue - Optional, either String, Number, Boolean, or Object. If set, updates Model with this value when the radio is selected.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;a-id-selectinput-a-selectinput:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;selectinput&#34;&gt;&lt;/a&gt;SelectInput&lt;/h3&gt;
+
+&lt;p&gt;React component that allows an InputModel to be bound to a Select input element.  Uses Bootstrap styling. If the InputModel has an existing value, will default the selection to the value.&lt;/p&gt;
+
+&lt;h5 id=&#34;proptypes-2:dc32fe45042973266ca60588597e0b66&#34;&gt;PropTypes&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;model - Required, InputModel&lt;/li&gt;
+&lt;li&gt;label - Optional, String&lt;/li&gt;
+&lt;li&gt;options - Required, Array, List of selectable options to display&lt;/li&gt;
+&lt;li&gt;optionsParser - Optional, Object with 2 functions label and value. Each function, when passed an element from the options array should return the correct item. The label function should return the item to display in the component UI. The value function should return the item to set on the InputModel when that element is selected. If no optionsParser is passed in, a buildValueOptionParser is used as default.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;a-id-buildvalueoptionparser-a-buildvalueoptionparser:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;buildvalueoptionparser&#34;&gt;&lt;/a&gt;buildValueOptionParser&lt;/h4&gt;
+
+&lt;p&gt;An OptionsParser that returns the element passed in for both the label and the value functions&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-buildlabelvalueobjectoptionparser-a-buildlabelvalueobjectoptionparser:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;buildlabelvalueobjectoptionparser&#34;&gt;&lt;/a&gt;buildLabelValueObjectOptionParser&lt;/h4&gt;
+
+&lt;p&gt;An OptionsParser that can be constructed with a labelFieldName and a valueFieldName. When the OptionsParser label function is called with an element, it returns the value for the field on the Element with the labelFieldName. When the OptionsParser value function is called with an element, it returns the value for the field on the Element with the valueFieldName.&lt;/p&gt;
+
+&lt;h4 id=&#34;a-id-buildlabeledobjectoptionparser-a-buildlabeledobjectoptionparser:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;buildlabeledobjectoptionparser&#34;&gt;&lt;/a&gt;buildLabeledObjectOptionParser&lt;/h4&gt;
+
+&lt;p&gt;An OptionsParser that can be constructed with a labelFieldName. When the OptionsParser label function is called with an element, it returns the value for the field on the Element with the labelFieldName. When the OptionsParser value function is called with an element, it returns the element itself.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-id-textareainput-a-textareainput:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;textareainput&#34;&gt;&lt;/a&gt;TextareaInput&lt;/h3&gt;
+
+&lt;p&gt;React component that allows an InputModel to be bound to a Textarea input element.  Uses Bootstrap styling.&lt;/p&gt;
+
+&lt;h5 id=&#34;proptypes-3:dc32fe45042973266ca60588597e0b66&#34;&gt;PropTypes&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;model - Required, InputModel&lt;/li&gt;
+&lt;li&gt;label - Required, String&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;a-id-textinput-a-textinput:dc32fe45042973266ca60588597e0b66&#34;&gt;&lt;a id=&#34;textinput&#34;&gt;&lt;/a&gt;TextInput&lt;/h3&gt;
+
+&lt;p&gt;React component that allows an InputModel to be bound to a Text input element.  Uses Bootstrap styling.&lt;/p&gt;
+
+&lt;h5 id=&#34;proptypes-4:dc32fe45042973266ca60588597e0b66&#34;&gt;PropTypes&lt;/h5&gt;
+
+&lt;ul&gt;
+&lt;li&gt;model - Required, InputModel&lt;/li&gt;
+&lt;li&gt;label - Required, String&lt;/li&gt;
+&lt;li&gt;obscure - Optional, Boolean.  If set, hides display of value characters.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>_index</title>
+      <link>http://sword42.github.com/react-ui-helpers/_index/</link>
+      <pubDate>Fri, 06 May 2016 14:28:03 -0700</pubDate>
+      
+      <guid>http://sword42.github.com/react-ui-helpers/_index/</guid>
+      <description>
+
+&lt;p&gt;Coming to React from Angular, it hurt not to have the form component framework from Angular. ngModel, along with the validation support, allow complex forms with nested components without requiring a rigid structure.&lt;/p&gt;
+
+&lt;p&gt;Following the React &amp;ldquo;Data Down/Events Up&amp;rdquo; model can get nasty with many nested input components. These helpers are meant to ease the pain.&lt;/p&gt;
+
+&lt;h3 id=&#34;example:3976528693a0108357f4928017600865&#34;&gt;Example&lt;/h3&gt;
+
+&lt;h3 id=&#34;install:3976528693a0108357f4928017600865&#34;&gt;Install&lt;/h3&gt;
+
+&lt;h3 id=&#34;api-reference:3976528693a0108357f4928017600865&#34;&gt;API Reference&lt;/h3&gt;
+
+&lt;p&gt;Please see the &lt;a href=&#34;http://sword42.github.com/react-ui-helpers/react-ui-helpers/usage&#34;&gt;usage page&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;license:3976528693a0108357f4928017600865&#34;&gt;License&lt;/h3&gt;
+
+&lt;p&gt;React UI Helpers is &lt;a href=&#34;https://github.com/sword42/react-ui-helpers/blob/master/LICENSE&#34;&gt;Apache License V2 licensed&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;troubleshooting:3976528693a0108357f4928017600865&#34;&gt;Troubleshooting&lt;/h3&gt;
+
+&lt;p&gt;Please create &lt;a href=&#34;https://github.com/sword42/react-ui-helpers/issues/new&#34;&gt;an issue&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

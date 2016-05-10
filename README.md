@@ -11,7 +11,7 @@ Following the React "Data Down/Events Up" model can get nasty with many nested i
 
 ### API Reference
 
-Please see the [usage page](/react-ui-helpers/usage)
+Please see the [usage page](http://sword42.github.io/react-ui-helpers/usage/)
 
 ### License
 

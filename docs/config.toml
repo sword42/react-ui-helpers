@@ -1,0 +1,10 @@
+baseurl = "http://sword42.github.com/react-ui-helpers"
+languageCode = "en-us"
+title = "React UI Helpers"
+theme = "hugo-theme-bootie-docs"
+
+# Site params for bootie docs
+[params]
+  description = "React UI Helpers are helper Objects and Functions to ease building React Components and Interfaces."
+  mainMenu = ["usage"]
+  highlightStyle = "github"

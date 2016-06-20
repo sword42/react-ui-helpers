@@ -1,4 +1,4 @@
-import { forOwn, forEach, keys, values, isNil, isEmpty as _isEmpty } from 'lodash'
+import { forOwn, forEach, keys, values, isNil, isEmpty as _isEmpty, isObject } from 'lodash'
 import { Promise } from 'bluebird'
 
 function InputModel(vals) {
@@ -32,7 +32,7 @@ function InputModel(vals) {
 				newVal = null;
 			}
 		}
-		if (newVal === viewValue && newVal === modelValue) {
+		if (newVal === viewValue && newVal === modelValue && !isObject(newVal)) {
 			return
 		}
 		pristine = false
@@ -69,7 +69,7 @@ function InputModel(vals) {
 				validatorResult = validator(localViewValue)
 				if (validatorResult) {
 					newErrors[vName] = validatorResult
-				}					
+				}
 			} catch (err) {
 				console.log('Validator Error: '+err)
 			}

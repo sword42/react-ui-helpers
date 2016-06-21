@@ -1,4 +1,4 @@
-import { forOwn, forEach, keys, values, isNil, isEmpty as _isEmpty, isObject } from 'lodash'
+import { forOwn, forEach, keys, values, isNil, isEmpty as _isEmpty, isObject, bind } from 'lodash'
 import { Promise } from 'bluebird'
 
 function InputModel(vals) {
@@ -17,7 +17,9 @@ function InputModel(vals) {
 		isPristine: isPristine,
 		isEmpty: isEmpty,
 		addListener: addListener,
-		removeListener: removeListener
+		removeListener: removeListener,
+		addValidator: addValidator,
+		removeValidator: removeValidator
 	}
 
 	function getValue() {
@@ -48,11 +50,18 @@ function InputModel(vals) {
 	function isEmpty() {
 		return (isNil(modelValue) || _isEmpty(modelValue))
 	}
-	function addListener(listener) {
-		listeners[listener] = Promise.method(listener)
+	function addListener(listener, listenerName) {
+		const listenerKey = listenerName || listener
+		listeners[listenerKey] = Promise.method(listener)
 	}
-	function removeListener(listener) {
-		delete listeners[listener]
+	function removeListener(listenerKey) {
+		delete listeners[listenerKey]
+	}
+	function addValidator(validatorName, validatorFunc ) {
+		validators[validatorName] = validatorFunc
+	}
+	function removeValidator(validatorName) {
+		delete validators[validatorName]
 	}
 	function processViewUpdate() {
 		const localViewValue = viewValue
@@ -104,4 +113,37 @@ export function createInputModel(vals) {
 	vals = vals || {}
 	const ret = new InputModel(vals)
 	return ret
+}
+
+export function createInputModelChain(fieldNames, sourceModel) {
+	const ret = {}
+	forEach(fieldNames, (fieldName) => {
+		ret[fieldName] = createInputModel({name:fieldName, value:sourceModel.getValue()[fieldName] })
+		ret[fieldName].addListener( bind(inputModelMapFunc, undefined, sourceModel, ret[fieldName], fieldName), fieldName )
+	})
+	return ret
+}
+
+export function setupInputModelListenerMapping(fieldNames, destModel, sourceModels, mapFunc) {
+	forEach(fieldNames, (fieldName) => {
+		sourceModels[fieldName].addListener( bind(mapFunc, undefined, destModel, sourceModels[fieldName], fieldName), fieldName )
+	})
+}
+
+export function inputModelListenerCleanUp(fieldNames, sourceModels) {
+	forEach(fieldNames, (fieldName) => {
+		sourceModels[fieldName].removeListener( fieldName )
+	})
+}
+
+export function inputModelMapFunc(destModel, sourceModel, fieldName) {
+	const obj = destModel.getValue()
+	obj[fieldName] = sourceModel.getValue()
+	destModel.updateValue(obj)
+}
+
+export function inputModelAddValidators(inputModel, valsObj) {
+	forOwn(valsObj, function(validator, vName){
+		inputModel.addValidator(vName, validator)
+	})
 }

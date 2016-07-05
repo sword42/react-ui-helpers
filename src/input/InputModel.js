@@ -87,10 +87,11 @@ function InputModel(vals) {
 	}
 	function processListeners(localViewValue) {
 		let retPromises = []
-		const listenerFuncs = values(listeners)
-		forEach(listenerFuncs, function(listener){
+		const listenerFuncs = keys(listeners)
+		forEach(listenerFuncs, function(listenerName){
+			const listener = listeners[listenerName]
 			try {
-				retPromises.push(listener(localViewValue, name))
+				retPromises.push(listener(localViewValue, listenerName))
 			} catch (err) {
 				console.log('Listener Error: '+err)
 			}

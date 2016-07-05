@@ -65,15 +65,13 @@ describe('InputModel',() => {
 			expect(inputModel.isValid()).to.be.false
 		})
 		it('should update value with a listener', () => {
-			let listenerValue = null
-			let listenerName = null
 			const updateListener = function(value, name) {
-				listenerValue = value
-				listenerName = name
-				expect(listenerValue).to.be.equal('321cba')
-				expect(listenerName).to.be.equal('def456')
+				console.log('value '+value+' name: '+name)
+				expect(value).to.be.equal('321cba')
+				expect(name).to.be.equal('updateListener')
 			}
-			const inputModel = createInputModel({value:'abc123', name:'def456',  listeners:[updateListener]})
+			const inputModel = createInputModel({value:'abc123', name:'def456' })
+			inputModel.addListener(updateListener, 'updateListener')
 			expect(inputModel.getValue()).to.be.equal('abc123')
 			const testEvent = '321cba'
 			const prom = inputModel.updateValue(testEvent)

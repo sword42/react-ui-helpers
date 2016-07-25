@@ -18,7 +18,8 @@ module.exports = {
 		test_checkboxinputinui: './input/test_checkboxinputinui.js',
 		test_radioinputinui: './input/test_radioinputinui.js',
 		test_textareainputinui: './input/test_textareainputinui.js',
-		test_selectinputinui: './input/test_selectinputinui.js'
+		test_selectinputinui: './input/test_selectinputinui.js',
+		test_multiselectinputinui: './input/test_multiselectinputinui.js'
 	},
 	output: {
 		path: PATHS.build,
@@ -34,7 +35,8 @@ module.exports = {
 						presets: ['react', 'es2015'],
 						plugins: ['jsx-control-statements']
 				}
-			}
+			},
+			{ test: /\.css$/, loader: "style-loader!css-loader" }
 		]
 	},
 	devtool: 'source-map',
@@ -73,6 +75,7 @@ module.exports = {
 				{ from: './input/test_radioinputinui.html', to: 'test_radioinputinui.html' },
 				{ from: './input/test_textareainputinui.html', to: 'test_textareainputinui.html' },
 				{ from: './input/test_selectinputinui.html', to: 'test_selectinputinui.html' },
+				{ from: './input/test_multiselectinputinui.html', to: 'test_multiselectinputinui.html' },
 				])
   ]
 };

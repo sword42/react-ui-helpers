@@ -1,6 +1,6 @@
 {
   "name": "react-ui-helpers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "react-ui-helpers",
   "main": "dist/react-ui-helpers.js",
   "author": "react-ui-helpers",
@@ -14,8 +14,10 @@
     "bluebird": "^3.3.4",
     "classnames": "^2.2.3",
     "lodash": "^4.6.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-input-autosize": "^1.1.0",
+    "react-select": "^1.0.0-beta14"
   },
   "devDependencies": {
     "babel-core": "^6.6.0",
@@ -24,10 +26,12 @@
     "babel-preset-react": "^6.5.0",
     "chai": "^3.5.0",
     "copy-webpack-plugin": "^1.1.1",
+    "css-loader": "^0.23.1",
     "jsx-control-statements": "^3.1.0",
     "mocha": "^2.4.5",
     "mocha-webpack": "^0.1.0",
     "sinon": "1.16.1",
+    "style-loader": "^0.13.1",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.8.3",

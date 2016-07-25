@@ -65,6 +65,18 @@ module.exports = {
 			commonjs2: 'classnames',
 			commonjs: 'classnames',
 			amd: 'classnames'
+		},
+		"react-select": {
+			root: 'react-select',
+			commonjs2: 'react-select',
+			commonjs: 'react-select',
+			amd: 'react-select'
+		},
+		"react-input-autosize": {
+			root: 'react-input-autosize',
+			commonjs2: 'react-input-autosize',
+			commonjs: 'react-input-autosize',
+			amd: 'react-input-autosize'
 		}
 	},
 	devtool: 'source-map',

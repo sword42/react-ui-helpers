@@ -18,7 +18,7 @@ export class CheckboxInput extends React.Component {
 	updateSelected(event) {
 		const newSelected = !this.state.selected
 		this.setState( {selected: newSelected} )
-		if (has(this.props, 'selectedValue') ) { 
+		if (has(this.props, 'selectedValue') ) {
 			if (newSelected) {
 				this.props.model.updateValue( this.props.selectedValue )
 			} else {
@@ -49,7 +49,7 @@ export class CheckboxInput extends React.Component {
 			return (
 					<label className="checkbox-inline">
 						<input type="checkbox" name={this.state.name} value={this.state.selected}
-								onChange={this.updateSelected} /> {this.props.label}
+								onChange={this.updateSelected} defaultChecked={this.state.selected} /> {this.props.label}
 					</label>
 			)
 		} else {
@@ -57,8 +57,8 @@ export class CheckboxInput extends React.Component {
 				<div className={outerClass}>
 					<div className="checkbox">
 						<label>
-							<input type="checkbox" name={this.state.name} checked={this.state.selected}
-								onChange={this.updateSelected} /> {this.props.label}
+							<input type="checkbox" name={this.state.name} value={this.state.selected}
+								onChange={this.updateSelected} defaultChecked={this.state.selected} /> {this.props.label}
 						</label>
 					</div>
 				</div>
@@ -66,7 +66,7 @@ export class CheckboxInput extends React.Component {
 		}
 	}
 }
-CheckboxInput.propTypes = { 
+CheckboxInput.propTypes = {
 	model: React.PropTypes.object.isRequired,
 	label: React.PropTypes.string.isRequired,
 	inline: React.PropTypes.bool,

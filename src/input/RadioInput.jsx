@@ -18,7 +18,7 @@ export class RadioInput extends React.Component {
 	updateSelected(event) {
 		const newSelected = !this.state.selected
 		this.setState( {selected: newSelected} )
-		if (has(this.props, 'selectedValue') ) { 
+		if (has(this.props, 'selectedValue') ) {
 			if (newSelected) {
 				this.props.model.updateValue( this.props.selectedValue )
 			}
@@ -56,7 +56,7 @@ export class RadioInput extends React.Component {
 					<div className="radio">
 						<label>
 							<input type="radio" name={this.props.name} value={this.state.selected}
-								onChange={this.updateSelected} /> {this.props.label}
+								onChange={this.updateSelected} defaultChecked={this.getSelectedFromModel(this.props)} /> {this.props.label}
 						</label>
 					</div>
 				</div>
@@ -64,7 +64,7 @@ export class RadioInput extends React.Component {
 		}
 	}
 }
-RadioInput.propTypes = { 
+RadioInput.propTypes = {
 	model: React.PropTypes.object.isRequired,
 	label: React.PropTypes.string.isRequired,
 	inline: React.PropTypes.bool,

@@ -6,16 +6,23 @@ import { createInputModel } from './InputModel.js'
 import { RadioInput } from './RadioInput.jsx'
 
 var info = {
-	model: null,
-	value: false,
-	updateValue: function(value) {
-		info.value = value
+	model1: null,
+	value1: null,
+	updateValue1: function(value) {
+		info.value1 = value
+		display()
+	},
+	model2: null,
+	value2: 'Good',
+	updateValue2: function(value) {
+		info.value2 = value
 		display()
 	}
 }
 
 function loadData() {
-	info.model = createInputModel({name:'color', value:null, listeners:[info.updateValue]})
+	info.model1 = createInputModel({name:'color', value:null, listeners:[info.updateValue1]})
+	info.model2 = createInputModel({name:'side', value:info.value2, listeners:[info.updateValue2]})
 }
 
 loadData()
@@ -24,18 +31,27 @@ function display() {
 	var content = (
 		<div>
 			<form>
-				<RadioInput model={info.model} label="Red" name="color" selectedValue="Red"  />
-				<RadioInput model={info.model} label="Blue" name="color" selectedValue="Blue"  />
-				<button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest} 
-						disabled={(!info.model.isValid())}>Submit</button>
+				<div className="row">
+					<div className="col-xs-12"><RadioInput model={info.model1} label="Red" name="color" selectedValue="Red"  /></div>
+					<div className="col-xs-12"><RadioInput model={info.model1} label="Blue" name="color" selectedValue="Blue"  /></div>
+					<div className="col-xs-12"><button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest}
+							disabled={(!info.model1.isValid())}>Submit 1</button></div>
+				</div>
+				<div className="row">
+					<div className="col-xs-12"><RadioInput model={info.model2} label="Good" name="side" selectedValue="Good"  /></div>
+					<div className="col-xs-12"><RadioInput model={info.model2} label="Bad" name="side" selectedValue="Bad"  /></div>
+					<div className="col-xs-12"><button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest}
+							disabled={(!info.model2.isValid())}>Submit 2</button></div>
+				</div>
 			</form>
-			<p><span>Top Value </span><span>{info.value}</span></p>
+			<p><span>Top Value 1 </span><span>{info.value1}</span></p>
+			<p><span>Top Value 2 </span><span>{info.value2}</span></p>
 		</div>
 	)
 
 	ReactDOM.render(
 	  content,
 	  document.getElementById('target')
-	)	
+	)
 }
 display()

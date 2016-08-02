@@ -67,13 +67,13 @@ module.exports = {
 			amd: 'classnames'
 		},
 		"react-select": {
-			root: 'react-select',
+			root: 'Select',
 			commonjs2: 'react-select',
 			commonjs: 'react-select',
 			amd: 'react-select'
 		},
 		"react-input-autosize": {
-			root: 'react-input-autosize',
+			root: 'AutosizeInput',
 			commonjs2: 'react-input-autosize',
 			commonjs: 'react-input-autosize',
 			amd: 'react-input-autosize'

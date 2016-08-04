@@ -49,7 +49,7 @@ export class CheckboxInput extends React.Component {
 			return (
 					<label className="checkbox-inline">
 						<input type="checkbox" name={this.state.name} value={this.state.selected}
-								onChange={this.updateSelected} defaultChecked={this.state.selected} /> {this.props.label}
+								onChange={this.updateSelected} checked={this.state.selected} /> {this.props.label}
 					</label>
 			)
 		} else {
@@ -58,7 +58,7 @@ export class CheckboxInput extends React.Component {
 					<div className="checkbox">
 						<label>
 							<input type="checkbox" name={this.state.name} value={this.state.selected}
-								onChange={this.updateSelected} defaultChecked={this.state.selected} /> {this.props.label}
+								onChange={this.updateSelected} checked={this.state.selected} /> {this.props.label}
 						</label>
 					</div>
 				</div>

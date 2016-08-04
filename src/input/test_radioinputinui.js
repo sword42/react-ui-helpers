@@ -25,6 +25,12 @@ function loadData() {
 	info.model2 = createInputModel({name:'side', value:info.value2, listeners:[info.updateValue2]})
 }
 
+function newSide() {
+	let isCurrentSideGood = ('Good' === info.value2)
+	let newVal = ( isCurrentSideGood ? 'Bad' : 'Good')
+	info.model2.updateValue(newVal)
+}
+
 loadData()
 
 function display() {
@@ -46,6 +52,7 @@ function display() {
 			</form>
 			<p><span>Top Value 1 </span><span>{info.value1}</span></p>
 			<p><span>Top Value 2 </span><span>{info.value2}</span></p>
+			<input type="button" onClick={ newSide } value="New side"/>
 		</div>
 	)
 

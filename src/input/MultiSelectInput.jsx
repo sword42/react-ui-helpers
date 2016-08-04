@@ -1,5 +1,5 @@
 import React 		from 'react'
-import { find, forEach, map } from 'lodash'
+import { find, forEach, map, isObject } from 'lodash'
 import classNames from 'classnames'
 import Select from 'react-select'
 
@@ -10,17 +10,15 @@ export class MultiSelectInput extends React.Component {
 	constructor(props) {
 		super(props)
 		this.updateSelection = this.updateSelection.bind(this)
-		this.createSelectOptionFromModelOption = this.createSelectOptionFromModelOption.bind(this)
-		this.getSelectOptionFromModelValue = this.getSelectOptionFromModelValue.bind(this)
 		this.getModelValueFromSelectOption = this.getModelValueFromSelectOption.bind(this)
-		const options = map(this.props.options, this.createSelectOptionFromModelOption)
-		const selectValues = map(this.props.model.getValue(), this.getSelectOptionFromModelValue)
+		const options = this.convertOptions(props.options, props.optionsParser)
+		const selectValues = this.identifySelectedOptions(props.model.getValue(), props.options, props.optionsParser, options)
 		this.state = { options:options, selectValues:selectValues }
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const options = map(this.props.options, this.createSelectOptionFromModelOption)
-		const selectValues = map(this.props.model.getValue(), this.getSelectOptionFromModelValue)
+		const options = this.convertOptions(nextProps.options, nextProps.optionsParser)
+		const selectValues = this.identifySelectedOptions(nextProps.model.getValue(), nextProps.options, nextProps.optionsParser, options)
 		this.setState({ options:options, selectValues:selectValues })
 	}
 
@@ -29,9 +27,30 @@ export class MultiSelectInput extends React.Component {
 		this.props.model.updateValue(values)
 	}
 
-	createSelectOptionFromModelOption(option) {
-		return { label:this.props.optionsParser.label(option), value:this.props.optionsParser.label(option) }
+	convertOptions(propsOptions, optionsParser) {
+		const ret = map(propsOptions, (option) => {
+			return {label:optionsParser.label(option), value:optionsParser.label(option) }
+		})
+		return ret
 	}
+
+	identifySelectedOptions(selectedModelValues, propOptions, optionsParser, viewOptions) {
+		// modelValue -> modelOption -> modelOptionLabel -> selectOption
+		const ret = map(selectedModelValues, (modelValue) => {
+			let modelOption = modelValue
+			if (!isObject(modelOption)) {
+				modelOption = find(propOptions, (item) => {
+					return (modelValue == optionsParser.value( item ) )
+				})
+			}
+			const modelOptionLabel = optionsParser.label( modelOption )
+			return find(viewOptions, (selectOption) => {
+				return (selectOption.label === modelOptionLabel)
+			})
+		})
+		return ret
+	}
+
 
 	getModelValueFromSelectOption(selectOption) {
 		const label = selectOption.label
@@ -40,17 +59,6 @@ export class MultiSelectInput extends React.Component {
 			return (label === optionsParser.label( item ) )
 		})
 		return optionsParser.value(modelOption)
-	}
-
-	getSelectOptionFromModelValue(modelValue) {// modelValue -> modelOption -> modelOptionLabel -> selectOption
-		const optionsParser = this.props.optionsParser
-		const modelOption = find(this.props.options, function(item) {
-			return (modelValue === optionsParser.value( item ) )
-		})
-		const modelOptionLabel = optionsParser.label( modelOption )
-		return find(this.state.options, function(selectOption) {
-			return (selectOption.label === modelOptionLabel)
-		})
 	}
 
 	render() {

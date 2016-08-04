@@ -47,7 +47,7 @@ export class RadioInput extends React.Component {
 			return (
 					<label className="radio-inline">
 						<input type="radio" name={this.props.name} value={this.state.selected}
-								onChange={this.updateSelected} defaultChecked={this.getSelectedFromModel(this.props)} /> {this.props.label}
+								onChange={this.updateSelected} checked={this.state.selected} /> {this.props.label}
 					</label>
 			)
 		} else {
@@ -56,7 +56,7 @@ export class RadioInput extends React.Component {
 					<div className="radio">
 						<label>
 							<input type="radio" name={this.props.name} value={this.state.selected}
-								onChange={this.updateSelected} defaultChecked={this.getSelectedFromModel(this.props)} /> {this.props.label}
+								onChange={this.updateSelected} checked={this.state.selected} /> {this.props.label}
 						</label>
 					</div>
 				</div>

@@ -47,10 +47,12 @@ export class CheckboxInput extends React.Component {
 
 		if (this.props.inline) {
 			return (
+				<div className={outerClass}>
 					<label className="checkbox-inline">
 						<input type="checkbox" name={this.state.name} value={this.state.selected}
 								onChange={this.updateSelected} checked={this.state.selected} /> {this.props.label}
 					</label>
+				</div>
 			)
 		} else {
 			return (

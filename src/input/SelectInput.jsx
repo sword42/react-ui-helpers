@@ -1,25 +1,20 @@
 import React 		from 'react'
-import { has, isBoolean, forEach, get, find } from 'lodash'
+import { has, isBoolean, forEach, get, find, isNil, isObject } from 'lodash'
 import classNames from 'classnames'
 
+import { buildValueOptionParser, findSelectedOptionFromModelValue,
+ 					getModelValueFromSelectOption} from './SelectHelpers.js'
 
 export class SelectInput extends React.Component {
 	constructor(props) {
 		super(props)
 		this.updateSelection = this.updateSelection.bind(this)
-		this.selectedValue = this.selectedValue.bind(this)
 	}
 
 	updateSelection(event) {
-		const optionsParser = this.props.optionsParser
-		const selection = find(this.props.options, function(item) {
-			return (event.target.value === optionsParser.label( item ) )
-		})
+		const selectedLabel = event.target.value
+		const selection = getModelValueFromSelectOption(selectedLabel, this.props.options, this.props.optionsParser)
 		this.props.model.updateValue(selection)
-	}
-
-	selectedValue() {
-		return this.props.optionsParser.label( this.props.model.getValue() )
 	}
 
 	render() {
@@ -29,19 +24,21 @@ export class SelectInput extends React.Component {
 		})
 		const options = []
 		const optionsParser = this.props.optionsParser
+		options.push( <option className="placeholder" key="-19as8as;puoasf8" value="" disabled >Select</option> )
 		forEach(this.props.options, function(option, index){
 			options.push(
 				<option key={ optionsParser.label(option) } value={ optionsParser.label(option) }>{ optionsParser.label(option) }</option>
 				)
 		})
 
-
+		const selected = findSelectedOptionFromModelValue(this.props.model.getValue(),
+													this.props.options, this.props.optionsParser)
 		return (
 			<div className={inputClass}>
 				<If condition={this.props.label}>
 					<label className="control-label">{this.props.label}</label>
 				</If>
-				<select className="form-control" value={ this.selectedValue() } onChange={this.updateSelection}>
+				<select className="form-control" value={ selected } onChange={this.updateSelection}>
 					{options}
 				</select>
 				<If condition={(!this.props.model.isValid() && !this.props.model.isEmpty() && !this.props.model.isPristine())} >
@@ -51,7 +48,7 @@ export class SelectInput extends React.Component {
 		)
 	}
 }
-SelectInput.propTypes = { 
+SelectInput.propTypes = {
 	model: React.PropTypes.object.isRequired,
 	label: React.PropTypes.string,
 	options: React.PropTypes.array.isRequired,
@@ -59,43 +56,4 @@ SelectInput.propTypes = {
 }
 SelectInput.defaultProps = {
 	optionsParser: buildValueOptionParser()
-}
-
-export function buildValueOptionParser() {
-	const ret = {
-		label: returnValue,
-		value: returnValue
-	}
-	function returnValue(value) {
-		return value
-	}
-	return ret
-}
-
-export function buildLabelValueObjectOptionParser(labelFieldName, valueFieldName) {
-	function returnLabelField(obj) {
-		return get(obj, labelFieldName)
-	}
-	function returnValueField(obj) {
-		return get(obj, valueFieldName)
-	}
-	const ret = {
-		label: returnLabelField,
-		value: returnValueField
-	}
-	return ret
-}
-
-export function buildLabeledObjectOptionParser(labelFieldName) {
-	const ret = {
-		label: returnLabelField,
-		value: returnValue
-	}
-	function returnLabelField(obj) {
-		return get(obj, labelFieldName)
-	}
-	function returnValue(value) {
-		return value
-	}
-	return ret
 }

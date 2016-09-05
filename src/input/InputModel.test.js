@@ -66,7 +66,6 @@ describe('InputModel',() => {
 		})
 		it('should update value with a listener', () => {
 			const updateListener = function(value, name) {
-				console.log('value '+value+' name: '+name)
 				expect(value).to.be.equal('321cba')
 				expect(name).to.be.equal('updateListener')
 			}

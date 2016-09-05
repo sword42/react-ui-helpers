@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash'
 import { createInputModel } from './InputModel.js'
 import { validateRequired } from './Validators.js'
 import { MultiSelectInput  } from './MultiSelectInput.jsx'
-import { buildLabeledObjectOptionParser, buildLabelValueObjectOptionParser  } from './SelectInput.jsx'
+import { buildLabelValueObjectOptionParser, buildLabeledObjectOptionParser } from './SelectHelpers'
 import 'react-select/dist/react-select.css';
 
 var info = {

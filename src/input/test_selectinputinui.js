@@ -4,7 +4,8 @@ import { isEmpty } from 'lodash'
 
 import { createInputModel } from './InputModel.js'
 import { validateRequired } from './Validators.js'
-import { SelectInput, buildLabelValueObjectOptionParser, buildLabeledObjectOptionParser } from './SelectInput.jsx'
+import { SelectInput } from './SelectInput.jsx'
+import { buildLabelValueObjectOptionParser, buildLabeledObjectOptionParser } from './SelectHelpers'
 
 var info = {
 	model1: null,
@@ -15,7 +16,8 @@ var info = {
 	},
 	options1: ['Red', 'Blue', 'Green'],
 	model2: null,
-	value2: null,
+//	value2: {name:'Clippers', id:'-1'},
+	value2: {name:'Lakers', id:'0'},
 	update2: function(value) {
 		info.value2 = value
 		display()
@@ -38,7 +40,7 @@ function display() {
 			<form>
 				<SelectInput model={info.model1} label="Color" options={info.options1} />
 				<SelectInput model={info.model2} label="Team" options={info.options2} optionsParser={info.optionsParser2} />
-				<button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest} 
+				<button type="submit" className="btn btn-lg btn-primary btn-block" onClick={info.submitRequest}
 						disabled={(!info.model1.isValid() )}>Submit</button>
 			</form>
 			<p><span>Value1 </span><span>{info.value1}</span></p>
@@ -49,6 +51,6 @@ function display() {
 	ReactDOM.render(
 	  content,
 	  document.getElementById('target')
-	)	
+	)
 }
 display()

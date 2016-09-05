@@ -3,14 +3,14 @@ import { find, forEach, map, isObject } from 'lodash'
 import classNames from 'classnames'
 import Select from 'react-select'
 
-import { buildValueOptionParser } from './SelectInput.jsx'
+import { buildValueOptionParser, findSelectedOptionFromModelValue,
+ 					getModelValueFromSelectOption} from './SelectHelpers.js'
 
 
 export class MultiSelectInput extends React.Component {
 	constructor(props) {
 		super(props)
 		this.updateSelection = this.updateSelection.bind(this)
-		this.getModelValueFromSelectOption = this.getModelValueFromSelectOption.bind(this)
 		const options = this.convertOptions(props.options, props.optionsParser)
 		const selectValues = this.identifySelectedOptions(props.model.getValue(), props.options, props.optionsParser, options)
 		this.state = { options:options, selectValues:selectValues }
@@ -23,42 +23,22 @@ export class MultiSelectInput extends React.Component {
 	}
 
 	updateSelection(selectedSelectOptions) {
-		const values = map(selectedSelectOptions, this.getModelValueFromSelectOption)
+		const values = map(selectedSelectOptions, (viewOption) => {
+			return getModelValueFromSelectOption(viewOption.label, this.props.options, this.props.optionsParser)
+		})
 		this.props.model.updateValue(values)
 	}
 
 	convertOptions(propsOptions, optionsParser) {
-		const ret = map(propsOptions, (option) => {
+		return map(propsOptions, (option) => {
 			return {label:optionsParser.label(option), value:optionsParser.label(option) }
 		})
-		return ret
 	}
 
 	identifySelectedOptions(selectedModelValues, propOptions, optionsParser, viewOptions) {
-		// modelValue -> modelOption -> modelOptionLabel -> selectOption
-		const ret = map(selectedModelValues, (modelValue) => {
-			let modelOption = modelValue
-			if (!isObject(modelOption)) {
-				modelOption = find(propOptions, (item) => {
-					return (modelValue == optionsParser.value( item ) )
-				})
-			}
-			const modelOptionLabel = optionsParser.label( modelOption )
-			return find(viewOptions, (selectOption) => {
-				return (selectOption.label === modelOptionLabel)
-			})
+		return map(selectedModelValues, (modelValue) => {
+			return findSelectedOptionFromModelValue(modelValue, propOptions, optionsParser, viewOptions)
 		})
-		return ret
-	}
-
-
-	getModelValueFromSelectOption(selectOption) {
-		const label = selectOption.label
-		const optionsParser = this.props.optionsParser
-		const modelOption = find(this.props.options, function(item) {
-			return (label === optionsParser.label( item ) )
-		})
-		return optionsParser.value(modelOption)
 	}
 
 	render() {
